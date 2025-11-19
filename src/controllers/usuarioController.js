@@ -56,6 +56,9 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var altura = req.body.alturaServer;
     var peso =  req.body.pesoServer;
+    var dtNasc = req.body.dtNascServer;
+    var dispTreino = req.body.dispoServer;
+    var prioridade = req.body.prioridadeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     // var fkEmpresa = req.body.idEmpresaVincularServer;
@@ -67,6 +70,12 @@ function cadastrar(req, res) {
         res.status(400).send("Sua altura está undefined!");
     } else if (peso == undefined) {
         res.status(400).send("Seu peso está undefined!");
+    } else if (dtNasc == undefined) {
+        res.status(400).send("Sua data de nascimento está undefined!");
+    } else if (dispTreino == undefined) {
+        res.status(400).send("Sua disponibilidade está undefined!");
+    } else if (prioridade == undefined) {
+        res.status(400).send("Sua prioridade está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
@@ -74,7 +83,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, altura, peso, email, senha)
+        usuarioModel.cadastrar(nome, altura, peso, dtNasc, dispTreino, prioridade, email, senha)
             .then(
                 function (resultado) {
                     res.json(resultado);
