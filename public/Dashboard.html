@@ -1,29 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FITLIFE | | Home</title>
-    <link rel="stylesheet" href="./css/estilo.css">
     <link rel="shortcut icon" href="./assets/imgs/icone.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife | Dashboard</title>
+
+    <link rel="stylesheet" href="./css/dashboards.css">
+    <link rel="stylesheet" href="./css/estilo.css" />
+
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <header>
-        <div class="container_header">
-            <div class="navbar">
-                <ul>
-                    <li> <a href="index.html"><span style="color: rgb(0, 0, 0);">Home</span></a></li>
-                    <li> <a href="Sobrempresa.html">Sobre o projeto / Minha história </a></li>
-                    <li> <a href="login.html">Login/Cadastro </a></li>
-                </ul>
+<body onload="obterDadosGrafico()">
+    <div class="kpi-container" style="display: flex; justify-content: space-around; width: 90%; margin-bottom: 20px;">
+
+        <div class="card-kpi"
+            style="background-color: #252527; padding: 20px; border-radius: 10px; text-align: center; width: 40%; border-bottom: 4px solid #e6005a;">
+            <h3 style="color: #ccc;">Peso Atual</h3>
+            <span id="kpi_peso" style="color: white; font-size: 2.5rem; font-weight: bold;">--</span>
+            <span style="color: white;">kg</span>
+        </div>
+
+        <div class="card-kpi"
+            style="background-color: #252527; padding: 20px; border-radius: 10px; text-align: center; width: 40%; border-bottom: 4px solid #32b9cd;">
+            <h3 style="color: #ccc;">IMC</h3>
+            <span id="kpi_imc" style="color: white; font-size: 2.5rem; font-weight: bold;">--</span>
+            <br>
+            <small id="kpi_imc_texto" style="color: #888;">Calculando...</small>
+        </div>
+
+    </div>
+
+    <div class="janela">
+        <div class="header-left">
+            <h1>FitLife</h1>
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
-    </header>
 
+            <div class="btn-nav">
+                <h3>Minha Evolução</h3>
+            </div>
 
-     <footer>
-        <p>Contato (FITLIFE@GMAIL.COM, 1194002-8922(WhatsApp)).</p>
-        <p>Todos os direitos reservados a Renan Minosso </p>
-    </footer>
+            <div class="btn-nav-white">
+                <a href="inserirMedidas.html">
+                    <h3>Adicionar Medidas</h3>
+                </a>
+            </div>
 
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+
+        </div>
+
+        <div class="dash">
+            <div id="alerta">
+            </div>
+
+            <div class="btns-dash">
+                <h2 style="color: white;">Gráfico de Evolução Corporal</h2>
+            </div>
+
+            <div id="graficos">
+                <div id="grafico1" class="display-block">
+                    <div class="graph">
+                        <canvas id="myChartCanvas"></canvas>
+                    </div>
+                    <div class="label-captura">
+                        <p id="avisoCaptura" style="color: white"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+<script>
+    
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    function obterDadosGrafico() {
+       
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        fetch(`/medidas/evolucao/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
+           
+            if (response.status == 204) {
+                console.log("Nenhum dado encontrado.");
+                var divGrafico = document.getElementById("graficos");
+                divGrafico.innerHTML = "<div style='display:flex; justify-content:center; align-items:center; height:100%; color:white;'><h3>Você ainda não tem medidas cadastradas!</h3></div>";
+                return; 
+            }
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    resposta.reverse(); // reverte ordem mostra do mais antigo -> mais novo
+
+                    plotarGrafico(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    })
+}
+
+    // 3. Função que cria o gráfico com Chart.js
+    function plotarGrafico(resposta) {
+
+        let ultimo = resposta[resposta.length - 1]; // ultimos dados
+
+        let pesoAtual = Number(ultimo.peso);
+        let alturaUsuario = Number(ultimo.altura);
+
+        kpi_peso.innerHTML = pesoAtual; 
+        
+        let imc = pesoAtual / (alturaUsuario * alturaUsuario); // peso / altura*altura
+        kpi_imc.innerHTML = imc.toFixed(2); 
+
+        let texto = "";
+        if (imc < 18.5) texto = "Abaixo do peso";  // taxa de imc https://www.msdmanuals.com/pt/casa/multimedia/table/%C3%ADndice-de-massa-corporal-imc
+        else if (imc < 24.9) texto = "Peso ideal";
+        else if (imc < 29.9) texto = "Levemente acima do peso";
+        else texto = "Obesidade";
+        
+        kpi_imc_texto.innerHTML = texto;
+
+        let labels = []; // eixo x
+
+        let dados = { // eixo y
+            labels: labels,
+            datasets: [
+            {label: 'Peso (kg)',
+            data: [],
+            borderColor: '#FFFFFF', 
+            borderDash: [5, 5], 
+            tension: 0.1
+            },
+            {label: 'Cintura',
+             data: [],
+             borderColor: '#e6005a', 
+             tension: 0.1
+            },
+            {label: 'Peito',
+             data: [],
+             borderColor: '#32b9cd', 
+             tension: 0.1
+            },
+            {label: 'Braço Esq.',
+             data: [],
+             borderColor: '#6959CD', 
+             tension: 0.1
+            },
+            {label: 'Coxa',
+             data: [],
+             borderColor: '#FFD700', 
+             tension: 0.1
+            },
+            {label: 'Panturrilha',
+             data: [],
+             borderColor: '#FFA500', 
+             tension: 0.1
+            }
+            ]
+        };
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];  // loop para as datas de registro
+
+            labels.push(registro.momento_grafico); // eixo x - puxa as datas 
+            dados.datasets[0].data.push(registro.peso); // eixo y - puxa o dado especifico
+            dados.datasets[1].data.push(registro.cintura); // eixo y - puxa o dado especifico
+            dados.datasets[2].data.push(registro.peito); // eixo y - puxa o dado especifico
+            dados.datasets[3].data.push(registro.bracoEsq); // eixo y - puxa o dado especifico
+            dados.datasets[4].data.push(registro.coxa); // eixo y - puxa o dado especifico
+            dados.datasets[5].data.push(registro.panturrilha); // eixo y - puxa o dado especifico
+        }
+        
+        const config = { // config do grafico
+            type: 'line',
+            data: dados,
+            options: {
+                scales: { y: { beginAtZero: false } },
+                plugins: { legend: { labels: { color: 'white' } } }
+            }
+        };
+
+        let myChart = new Chart(
+            document.getElementById('myChartCanvas'),
+            config
+        );
+    }
+</script>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>FitLife | Inserção Medidas</title>
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="stylesheet" href="./css/dashboards.css">
+    <script src="../js/sessao.js"></script>
+</head>
+<body>
+    <div class="janela">
+        <div class="dash" style="width: 100%; justify-content: center;">
+            <div class="card-login" style="color: black; background-color: white; padding: 30px; border-radius: 10px;">
+                <h2>Inserir Medidas do Mês</h2>
+                
+                <div class="formulario">
+                    <input type="number" id="input_peso" placeholder="Peso atual (kg)">
+                    <br>
+                    <input type="number" id="input_cintura" placeholder="Cintura (cm)">
+                    <br>
+                    <input type="number" id="input_peito" placeholder="Peito (cm)">
+                    <br>
+                    <input type="number" id="input_bracoE" placeholder="Braço Esq. (cm)">
+                    <br>
+                    <input type="number" id="input_bracoD" placeholder="Braço Dir. (cm)">
+                    <br>
+                    <input type="number" id="input_coxa" placeholder="Coxa (cm)">
+                    <br>
+                    <input type="number" id="input_panturrilha" placeholder="Panturrilha (cm)">
+                    <br><br>
+                    <button class="botao" onclick="cadastrarMedidas()">Salvar Medidas</button>
+                    <br>
+                    <a href="Dashboard.html">Voltar para Gráficos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function cadastrarMedidas() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        if(idUsuario == undefined){
+            alert("Erro: Usuário não identificado. Faça login novamente.")
+            return false;
+        }
+        
+        var corpo = {
+            peso: input_peso.value,
+            cintura: input_cintura.value,
+            peito: input_peito.value,
+            bracoE: input_bracoE.value,
+            bracoD: input_bracoD.value,
+            coxa: input_coxa.value,
+            panturrilha: input_panturrilha.value,
+            idUsuario: idUsuario
+        };
+
+        if (input_peso.value == "" || input_cintura.value == "") {
+            alert("Preencha pelo menos Peso e Cintura!");
+            return false;
+
+        fetch("/medidas/cadastrar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(corpo)
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                alert("Medidas cadastradas com sucesso!");
+                window.location = "Dashboard.html";
+            } else {
+                alert("Erro ao cadastrar!");
+                resposta.text().then(texto => {
+                    console.error(texto);});
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+        return false;
+    }
+}
+</script>

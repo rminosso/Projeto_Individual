@@ -1,29 +1,35 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idAquario, limite_linhas) {
+function buscarUltimasMedidas(idUsuario) {
 
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        momento,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-                    FROM medida
-                    WHERE fk_aquario = ${idAquario}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
+    var instrucaoSql = `
+        SELECT  
+            m.peso,
+            u.altura,
+            m.cintura,
+            m.peito,
+            m.bracoEsq,
+            m.bracoDir,
+            m.coxa,
+            m.panturrilha,
+            DATE_FORMAT(m.dtRegistro, '%d/%m') as momento_grafico
+        FROM medidas m
+        JOIN usuarios u ON m.fkUsuario = u.idUsuario
+        WHERE m.fkUsuario = ${idUsuario}
+        ORDER BY m.dtRegistro DESC, m.idMedidas DESC 
+        LIMIT 7;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idAquario) {
+function cadastrarMedida(cintura, peito, bracoE, bracoD, coxa, panturrilha, peso, idUsuario) {
 
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        FROM medida WHERE fk_aquario = ${idAquario} 
-                    ORDER BY id DESC LIMIT 1`;
+    var instrucaoSql = `INSERT INTO medidas
+     (cintura, peito, bracoEsq, bracoDir,
+     coxa, panturrilha, peso, fkUsuario, dtRegistro)
+     VALUES (${cintura}, ${peito}, ${bracoE}, ${bracoD}, ${coxa}, ${panturrilha},${peso}, ${idUsuario}, NOW());`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -31,5 +37,5 @@ function buscarMedidasEmTempoReal(idAquario) {
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    cadastrarMedida
 }
