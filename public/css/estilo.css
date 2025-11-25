@@ -131,24 +131,41 @@ header .container_header {
 .imagem_legenda {
     display: flex;
     flex-direction: column; 
-    align-items: center;   
-    width: 20vw;         
-    margin-right: 20px;
+    align-items: center;          
+    margin-bottom: -15px;
 }
 
-.legenda {
-    margin-top: -35px;
-    margin-left: 30px;
+.imagem_legenda img{
+    width: 25vw; 
+    height: auto; 
+    border-radius: 10px;
 }
 
-.legenda2 {
-    margin-top: 0px;
-    margin-left: 10px;
+.titulo_linha2 .imagem_legenda img{
+    width: 15vw; 
+    height: auto; 
+    border-radius: 10px;
 }
 
-.legenda3 {
+.titulo_linha .legenda {
+    width: auto;     
+    text-align: center; 
     margin-top: 10px;
-    margin-left: 20px;
+    font-weight: bold;
+}
+
+.titulo_linha2 .legenda2 {
+    width: auto;     
+    text-align: center; 
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.titulo_linha3 .legenda3 {
+    width: auto;     
+    text-align: center; 
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 .linha_tempo {
@@ -171,6 +188,7 @@ header .container_header {
 
 .titulo_linha {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 2%;
     gap: 20px;
@@ -178,6 +196,7 @@ header .container_header {
 
 .titulo_linha2 {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 2%;
     gap: 20px;
@@ -185,46 +204,28 @@ header .container_header {
 
 .titulo_linha3 {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 2%;
     gap: 20px;
 }
 
-.titulo_linha img {
-    width: 15vw;
-    height: 15vw;
-    object-fit: contain;
-    margin-top: -10px;
-}
-
-.titulo_linha2 img {
-    width: 15vw;
-    height: 15vw;
-    object-fit: contain;
-    margin-top: 20px;
-}
-
-.titulo_linha3 img {
-    width: 15vw;
-    height: 13vw;
-    object-fit: contain;
-    margin-top: 20px;
-}
-
 .titulo_linha p {
-    flex: 1;
-    text-align: left;
+    width: 90%;          
+    text-align: justify;   
+    font-size: 2.2vh;
 }
 
 .titulo_linha2 p {
-    flex: 1;
-    text-align: left;
-    margin-top: 0;
+    width: 90%;          
+    text-align: justify;   
+    font-size: 2.2vh;
 }
 
 .titulo_linha3 p {
-    flex: 1;
-    text-align: left;
+    width: 90%;          
+    text-align: justify;   
+    font-size: 2.2vh;;
 }
 
 .container_login {
