@@ -98,8 +98,9 @@
        
         var idUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`/medidas/evolucao/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
-           
+        fetch(`/medidas/evolucao/${idUsuario}`, 
+        { cache: 'no-store' })
+        .then(function (response) {   
             if (response.status == 204) {
                 console.log("Nenhum dado encontrado.");
                 var divGrafico = document.getElementById("graficos");
