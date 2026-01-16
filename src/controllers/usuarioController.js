@@ -25,7 +25,9 @@ function autenticar(req, res) {
                             nome: resultadoAutenticar[0].nome,
                             senha: resultadoAutenticar[0].senha,
                             altura: resultadoAutenticar[0].altura,
-                            
+                            prioridade: resultadoAutenticar[0].prioridade,
+                            dispTreino: resultadoAutenticar[0].dispTreino,
+                            nivel: resultadoAutenticar[0].nivel
                         });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -50,6 +52,7 @@ function cadastrar(req, res) {
     var dtNasc = req.body.dtNascServer;
     var dispTreino = req.body.dispoServer;
     var prioridade = req.body.prioridadeServer;
+    var nivel = req.body.nivelServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
@@ -64,14 +67,16 @@ function cadastrar(req, res) {
         res.status(400).send("Sua disponibilidade está undefined!");
     } else if (prioridade == undefined) {
         res.status(400).send("Sua prioridade está undefined!");
-    } else if (email == undefined) {
+    }else if (nivel == undefined){
+        res.status(400).send("Seu email está undefined!");
+    }else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, altura, dtNasc, dispTreino, prioridade, email, senha)
+        usuarioModel.cadastrar(nome, altura, dtNasc, dispTreino, prioridade, nivel, email, senha)
             .then(
                 function (resultado) {
                     res.json(resultado);

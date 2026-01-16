@@ -18,16 +18,16 @@
 <body>
   <!--header inicio-->
   <header>
-        <div class="container_header">
-            <div class="navbar">
-                <ul>
-                    <li> <a href="index.html">Home</span></a></li>
-                    <li> <a href="minhaHistoria.html"></span> Sobre o projeto / Minha história </a></li>
-                    <li> <a href="LoginCadastroDash/login.html"><span style="color:rgb(0, 0, 0);">Login/Cadastro</span></a>
-                    </li>
-                </ul>
-            </div>
-    </header>
+    <div class="container_header">
+      <div class="navbar">
+        <ul>
+          <li> <a href="index.html">Home</span></a></li>
+          <li> <a href="minhaHistoria.html"></span> Sobre o projeto / Minha história </a></li>
+          <li> <a href="LoginCadastroDash/login.html"><span style="color:rgb(0, 0, 0);">Login/Cadastro</span></a>
+          </li>
+        </ul>
+      </div>
+  </header>
   <!--header fim-->
 
   <div class="login">
@@ -37,149 +37,158 @@
       </div>
     </div>
     <div class="container_cadastro">
-        <div class="formulario">
-            <h2> Realize seu cadastro </h2>
-            <div class="campo">
-                <span>Nome:</span>
-                <input id="nome_input" type="text" placeholder="Renan">
-            </div>
-            <div class="campo">
-                <span>Altura (CM):</span>
-                <input id="altura_input" type="text" placeholder="1.75">
-            </div>
-            <div class="campo">
-                <span>Data de Nascimento:</span>
-                <input id="dtNasc_input" type="date" placeholder="2002-07-24">
-            </div>
-            <div class="campo">
-                <span>Quantidade de treinos na semana:</span>
-                <input id="dispo_input" type="text" placeholder="3">
-            </div>
-            <div class="campo">
-            <span>Prioridade Muscular:</span>
-            <select  id="prioridade_input">
-              <option selected disabled >Selecione uma opção</option>
-                    <option >equilibrado</option>
-                    <option >superior</option>
-                    <option >inferior</option>
-            </select>
-            </div>
+      <div class="formulario">
+        <h2> Realize seu cadastro </h2>
+        <div class="campo">
+          <span>Nome:</span>
+          <input id="nome_input" type="text" placeholder="Renan">
         </div>
-        <div class="formulario">
-            <div class="campo">
-                <span>Email:</span>
-                <input id="email_input" type="text" oninput="veriEmail()" placeholder="renan@email.com">
-                <span id="span_email"></span>
-            </div>
-            <div class="campo">
-                <span>Senha:</span>
-                <input id="senha_input" type="password" oninput="veriSenha()" placeholder="********">
-                <span id="span_senha"></span>
-            </div>
-            <div class="campo">
-                <span>Confirme sua senha:</span>
-                <input id="confirmacao_senha_input" type="password" oninput="veriSenhaConfirmacao()" placeholder="********">
-                <span id="conf_senha"></span>
-            </div>
-            <button class="botao" onclick="cadastrar()">Cadastrar</button>
-            <p>Já tem uma conta? <a href="login.html">Login</a></p>
+        <div class="campo">
+          <span>Altura (CM):</span>
+          <input id="altura_input" type="text" placeholder="1.75">
         </div>
+        <div class="campo">
+          <span>Data de Nascimento:</span>
+          <input id="dtNasc_input" type="date" placeholder="2002-07-24">
+        </div>
+        <div class="campo">
+          <span>Quantidade de treinos na semana:</span>
+          <input id="dispo_input" type="text" placeholder="3">
+        </div>
+        <div class="campo">
+          <span>Nível de Experiência:</span>
+          <select id="nivel_input">
+            <option selected disabled>Selecione seu nível</option>
+            <option>iniciante</option>
+            <option>intermediario</option>
+            <option>avancado</option>
+          </select>
+        </div>
+        <div class="campo">
+          <span>Prioridade Muscular:</span>
+          <select id="prioridade_input">
+            <option selected disabled>Selecione uma opção</option>
+            <option>equilibrado</option>
+            <option>superior</option>
+            <option>inferior</option>
+          </select>
+        </div>
+      </div>
+      <div class="formulario">
+        <div class="campo">
+          <span>Email:</span>
+          <input id="email_input" type="text" oninput="veriEmail()" placeholder="renan@email.com">
+          <span id="span_email"></span>
+        </div>
+        <div class="campo">
+          <span>Senha:</span>
+          <input id="senha_input" type="password" oninput="veriSenha()" placeholder="********">
+          <span id="span_senha"></span>
+        </div>
+        <div class="campo">
+          <span>Confirme sua senha:</span>
+          <input id="confirmacao_senha_input" type="password" oninput="veriSenhaConfirmacao()" placeholder="********">
+          <span id="conf_senha"></span>
+        </div>
+        <button class="botao" onclick="cadastrar()">Cadastrar</button>
+        <p>Já tem uma conta? <a href="login.html">Login</a></p>
+      </div>
     </div>
   </div>
 
   <!--footer inicio-->
-   <footer>
+  <footer>
     <p>Contato (FITLIFE@GMAIL.COM, 1194002-8922(WhatsApp)).</p>
     <p>Todos os direitos reservados a Renan Minosso </p>
-    </footer>
+  </footer>
   <!--footer fim-->
 </body>
 
 </html>
 
 <script>
-    var veriEmailvar = false;
-    var senha = '';
-    var veriSenhavar= false;
-    var veriSenhaConfirmacaovar = false;
+  var veriEmailvar = false;
+  var senha = '';
+  var veriSenhavar = false;
+  var veriSenhaConfirmacaovar = false;
 
-    function veriEmail() { 
-        var email = email_input.value;
-        var emailMin = email.toLowerCase();
+  function veriEmail() {
+    var email = email_input.value;
+    var emailMin = email.toLowerCase();
 
-        if (emailMin.includes('@') && emailMin.endsWith('.com')){ 
-            span_email.innerHTML = ` Email válido`;
-            span_email.style.color = `green`;
-            veriEmailvar = true;
-        } else {
-            span_email.innerHTML = ` Email inválido`;
-            span_email.style.color = `red`;
-            veriEmailvar = false
-        }
+    if (emailMin.includes('@') && emailMin.endsWith('.com')) {
+      span_email.innerHTML = ` Email válido`;
+      span_email.style.color = `green`;
+      veriEmailvar = true;
+    } else {
+      span_email.innerHTML = ` Email inválido`;
+      span_email.style.color = `red`;
+      veriEmailvar = false
+    }
+  }
+
+  function veriSenha() {
+    senha = senha_input.value;
+    var veriTam = false;
+    var veriNum = false;
+    var veriCarc = false
+
+    if (senha.length >= 8) {
+      veriTam = true;
+      span_senha.style.color = `green`;
+      span_senha.innerHTML = ` Senha Válida`;
+    } else {
+      veriTam = false;
+      span_senha.style.color = `red`;
+      span_senha.innerHTML = ` Senha inválida`;
     }
 
-    function veriSenha() { 
-        senha = senha_input.value;
-        var veriTam = false;
-        var veriNum = false;
-        var veriCarc = false
-
-        if (senha.length >= 8) { 
-            veriTam = true;
-            span_senha.style.color = `green`;
-            span_senha.innerHTML = ` Senha Válida`;
-        } else {
-            veriTam = false;
-            span_senha.style.color = `red`;
-            span_senha.innerHTML = ` Senha inválida`;
-        }
-
-        if (senha.includes(0) || senha.includes(1) || senha.includes(2) || senha.includes(3) || senha.includes(4)
-            || senha.includes(5) || senha.includes(6) || senha.includes(7) || senha.includes(8) || senha.includes(9)) {
-            veriNum = true;
-            span_senha.style.color = `green`;
-            span_senha.innerHTML = ` Senha Válida`;
-        } else {
-            veriNum = false;
-            span_senha.style.color = `red`;
-            span_senha.innerHTML = ` Senha inválida`;
-        }
-
-        if (senha.includes('!') || senha.includes('%') || senha.includes('*') || senha.includes('.')
-            || senha.includes('&') || senha.includes('#') || senha.includes('$')) { 
-            veriCarc = true;
-             span_senha.style.color = `green`;
-             span_senha.innerHTML = ` Senha Válida`;
-        } else {
-            veriCarc = false;
-            span_senha.style.color = `red`;
-            span_senha.innerHTML = ` Senha inválida`;
-        }
-
-        if (veriTam == false) { 
-        } else if (veriNum == false) { 
-        } else if (veriCarc == false) {
-        } else { 
-            veriSenhavar = true;
-        }
+    if (senha.includes(0) || senha.includes(1) || senha.includes(2) || senha.includes(3) || senha.includes(4)
+      || senha.includes(5) || senha.includes(6) || senha.includes(7) || senha.includes(8) || senha.includes(9)) {
+      veriNum = true;
+      span_senha.style.color = `green`;
+      span_senha.innerHTML = ` Senha Válida`;
+    } else {
+      veriNum = false;
+      span_senha.style.color = `red`;
+      span_senha.innerHTML = ` Senha inválida`;
     }
 
-    function veriSenhaConfirmacao() { 
-        var senha_confirmacao = confirmacao_senha_input.value;
+    if (senha.includes('!') || senha.includes('%') || senha.includes('*') || senha.includes('.')
+      || senha.includes('&') || senha.includes('#') || senha.includes('$')) {
+      veriCarc = true;
+      span_senha.style.color = `green`;
+      span_senha.innerHTML = ` Senha Válida`;
+    } else {
+      veriCarc = false;
+      span_senha.style.color = `red`;
+      span_senha.innerHTML = ` Senha inválida`;
+    }
 
-        if (senha_confirmacao == senha) { 
-            conf_senha.innerHTML = ``;
-            conf_senha.style.color = `green`;
-            veriSenhaConfirmacaovar = true;
+    if (veriTam == false) {
+    } else if (veriNum == false) {
+    } else if (veriCarc == false) {
+    } else {
+      veriSenhavar = true;
+    }
+  }
 
-        } else {
-            conf_senha.innerHTML = ` Senha incompatível`;
-            conf_senha.style.color = `red`;
-            veriSenhaConfirmacaovar = false;
-        }
-      }
+  function veriSenhaConfirmacao() {
+    var senha_confirmacao = confirmacao_senha_input.value;
 
- 
+    if (senha_confirmacao == senha) {
+      conf_senha.innerHTML = ``;
+      conf_senha.style.color = `green`;
+      veriSenhaConfirmacaovar = true;
+
+    } else {
+      conf_senha.innerHTML = ` Senha incompatível`;
+      conf_senha.style.color = `red`;
+      veriSenhaConfirmacaovar = false;
+    }
+  }
+
+
 
   function cadastrar() {
 
@@ -190,6 +199,7 @@
     var dtNascVar = dtNasc_input.value;
     var dispoVar = dispo_input.value;
     var prioridadeVar = prioridade_input.value;
+    var nivelVar = nivel_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
@@ -201,9 +211,10 @@
       dtNascVar == "" ||
       dispoVar == "" ||
       prioridadeVar == "" ||
+      nivelVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" 
+      confirmacaoSenhaVar == ""
       // codigoVar == ""
     ) {
       cardErro.style.display = "block";
@@ -229,9 +240,9 @@
         dtNascServer: dtNascVar,
         dispoServer: dispoVar,
         prioridadeServer: prioridadeVar,
+        nivelServer: nivelVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        // idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {

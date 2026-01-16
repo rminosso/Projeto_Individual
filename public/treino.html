@@ -71,173 +71,45 @@
             </div>
 </body>
 <script>
-    const catalogoTreinos = {
-        "1": { // Fullbody 
-            "equilibrado": [
-                { dia: "Treino Único (Fullbody)", exercicios: ["Agachamento Livre", "Supino Reto", "Remada Curvada", "Desenvolvimento Militar", "Levantamento Terra"] }
-            ]
-        },
-        "2": { // Upper/Lower 
-            "equilibrado": [
-                { dia: "A - Superiores (Upper)", exercicios: ["Supino Reto", "Puxada Frontal", "Desenvolvimento", "Rosca Direta", "Tríceps Testa"] },
-                { dia: "B - Inferiores (Lower)", exercicios: ["Agachamento", "Leg Press", "Stiff", "Cadeira Extensora", "Panturrilha"] }
-            ],
-            "superior": [
-                { dia: "A - Foco Peito/Costas", exercicios: ["Supino", "Crucifixo", "Remada Curvada", "Puxada Alta", "Elevação Lateral"] },
-                { dia: "B - Fullbody (Foco Braços)", exercicios: ["Leg Press", "Supino Fechado", "Rosca Scott", "Tríceps Corda", "Rosca Martelo"] }
-            ],
-            "inferior": [
-                { dia: "A - Pernas Completo", exercicios: ["Agachamento", "Afundo", "Leg Press", "Stiff", "Panturrilha"] },
-                { dia: "B - Upper (Manutenção)", exercicios: ["Supino Reto", "Puxada Frente", "Desenvolvimento", "Flexão de Braço"] }
-            ]
-        },
-        "3": { // PPL (Push/Pull/Legs) 
-            "equilibrado": [
-                { dia: "A - Empurrar (Push)", exercicios: ["Supino Reto", "Desenvolvimento", "Tríceps Corda", "Elevação Lateral"] },
-                { dia: "B - Puxar (Pull)", exercicios: ["Puxada Alta", "Remada Baixa", "Rosca Direta", "Face Pull"] },
-                { dia: "C - Pernas (Legs)", exercicios: ["Agachamento Livre", "Cadeira Extensora", "Mesa Flexora", "Panturrilha"] }
-            ],
-            "superior": [
-                { dia: "A - Peito e Tríceps", exercicios: ["Supino Reto", "Supino Inclinado", "Cross Over", "Tríceps Testa"] },
-                { dia: "B - Costas e Bíceps", exercicios: ["Barra Fixa", "Remada Curvada", "Rosca Scott", "Rosca Alternada"] },
-                { dia: "C - Ombros e Pernas", exercicios: ["Desenvolvimento", "Elevação Lateral", "Leg Press", "Cadeira Extensora"] }
-            ],
-            "inferior": [
-                { dia: "A - Inferior (Foco Quadríceps)", exercicios: ["Agachamento", "Leg Press 45", "Extensora", "Adutora"] },
-                { dia: "B - Superior Completo", exercicios: ["Supino Reto", "Puxada Alta", "Desenvolvimento", "Rosca Direta"] },
-                { dia: "C - Inferior (Foco Posterior)", exercicios: ["Stiff", "Mesa Flexora", "Elevação Pélvica", "Abdutora"] }
-            ]
-        },
-        "4": { // Upper/Lower 2x(AB-AB)
-            "equilibrado": [
-                { dia: "A1 - Superiores (Força)", exercicios: ["Supino Reto", "Remada Curvada", "Desenvolvimento Militar", "Barra Fixa ou Graviton", "Tríceps Testa"] },
-                { dia: "B1 - Inferiores (Foco Agachamento)", exercicios: ["Agachamento Livre", "Leg Press 45", "Cadeira Extensora", "Panturrilha em Pé", "Abdominal Supra"] },
-                { dia: "A2 - Superiores (Hipertrofia)", exercicios: ["Supino Inclinado Halteres", "Puxada Frontal", "Elevação Lateral", "Rosca Direta", "Face Pull"] },
-                { dia: "B2 - Inferiores (Foco Posterior)", exercicios: ["Levantamento Terra ou Stiff", "Mesa Flexora", "Afundo com Halteres", "Panturrilha Sentado", "Prancha"] }
-            ],
-            "superior": [
-                { dia: "A1 - Peito e Costas (Foco)", exercicios: ["Supino Reto", "Remada Curvada", "Crucifixo Máquina", "Puxada Alta", "Pullover"] },
-                { dia: "B1 - Pernas (Manutenção)", exercicios: ["Agachamento Hack", "Cadeira Extensora", "Mesa Flexora", "Panturrilha"] },
-                { dia: "A2 - Ombros e Braços (Foco)", exercicios: ["Desenvolvimento Halteres", "Elevação Lateral", "Rosca Scott", "Tríceps Corda", "Encolhimento"] },
-                { dia: "B2 - Pernas e Abdômen", exercicios: ["Leg Press 45", "Stiff", "Cadeira Abdutora", "Abdominal Infra"] }
-            ],
-            "inferior": [
-                { dia: "A1 - Inferior (Quadríceps)", exercicios: ["Agachamento Livre", "Leg Press", "Cadeira Extensora", "Passada", "Panturrilha"] },
-                { dia: "B1 - Superior Completo", exercicios: ["Supino Reto", "Puxada Frontal", "Desenvolvimento Máquina", "Rosca Martelo", "Tríceps Pulley"] },
-                { dia: "A2 - Inferior (Posterior/Glúteo)", exercicios: ["Stiff", "Elevação Pélvica", "Mesa Flexora", "Cadeira Abdutora", "Agachamento Sumô"] },
-                { dia: "B2 - Superior (Estimulo)", exercicios: ["Flexão de Braço", "Remada Baixa", "Elevação Lateral", "Abdominal Remador"] }
-            ]
-        },
-        "5": { // ABCDE 
-            "equilibrado": [
-                { dia: "A - Peito", exercicios: ["Supino Reto", "Supino Inclinado", "Crucifixo", "Peck Deck"] },
-                { dia: "B - Costas", exercicios: ["Puxada Frente", "Remada Baixa", "Serrote", "Pulldown"] },
-                { dia: "C - Pernas", exercicios: ["Agachamento", "Leg Press", "Extensora", "Panturrilha"] },
-                { dia: "D - Ombros/Tríceps", exercicios: ["Desenvolvimento", "Elevação Lateral", "Tríceps Testa", "Tríceps Pulley"] },
-                { dia: "E - Bíceps/Antebraço", exercicios: ["Rosca Direta", "Rosca Scott", "Rosca Inversa", "Flexão de Punho"] }
-            ],
-            "superior": [
-                { dia: "A - Peito (Foco)", exercicios: ["Supino Reto", "Supino Inclinado", "Cross Over", "Flexão"] },
-                { dia: "B - Costas (Foco)", exercicios: ["Barra Fixa", "Remada Curvada", "Remada Cavalinho", "Pulldown"] },
-                { dia: "C - Pernas (Manutenção)", exercicios: ["Leg Press", "Extensora", "Flexora", "Panturrilha"] },
-                { dia: "D - Ombros", exercicios: ["Desenvolvimento", "Elevação Lateral", "Elevação Frontal", "Encolhimento"] },
-                { dia: "E - Braços (Super Séries)", exercicios: ["Rosca Direta", "Tríceps Testa", "Rosca Martelo", "Tríceps Corda"] }
-            ],
-            "inferior": [
-                { dia: "A - Quadríceps", exercicios: ["Agachamento Livre", "Hack Machine", "Cadeira Extensora", "Passada"] },
-                { dia: "B - Peito e Costas", exercicios: ["Supino Reto", "Puxada Alta", "Remada Baixa", "Crucifixo"] },
-                { dia: "C - Posterior e Glúteo", exercicios: ["Stiff", "Mesa Flexora", "Elevação Pélvica", "Cadeira Abdutora"] },
-                { dia: "D - Ombros e Braços", exercicios: ["Desenvolvimento", "Elevação Lateral", "Rosca Direta", "Tríceps Pulley"] },
-                { dia: "E - Pernas Completo", exercicios: ["Leg Press 45", "Agachamento Sumô", "Panturrilha Sentado", "Panturrilha em Pé"] }
-            ]
-        }
-    };
+    function buscarTreino() {
+    var nomeUsuario = sessionStorage.NOME_USUARIO;
+    var prioridade = sessionStorage.PRIORIDADE_USUARIO;
+    var disponibilidade = sessionStorage.DISPONIBILIDADE_USUARIO;
+    var nivel = sessionStorage.NIVEL_USUARIO;
 
-    function buscarDadosEAtualizar() {
-        var idUsuario = sessionStorage.ID_USUARIO;
+    document.getElementById("b_usuario").innerHTML = nomeUsuario;
+    document.getElementById("kpi_prioridade").innerHTML = prioridade;
+    document.getElementById("kpi_disponibilidade").innerHTML = disponibilidade + " dias";
 
-        if (!idUsuario) {
-            window.location.href = "login.html";
-            return;
-        }
-
-        fetch(`/usuarios/preferencias/${idUsuario}`)
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    resposta.json().then(function (dados) {
-                        console.log("Dados recebidos: ", dados);
-
-                        if (document.getElementById("b_usuario")) {
-                            document.getElementById("b_usuario").innerHTML = dados.nome;
-                        }
-
-                        var disp = 0; 
-                        if (dados.dispTreino != undefined && dados.dispTreino != null) {
-                            disp = dados.dispTreino;
-                        } else {
-                            disp = 3;
-                        }
-
-                        var prior = "";
-                        if (dados.prioridade != undefined && dados.prioridade != null) {
-                            prior = dados.prioridade.toLowerCase();
-                        } else {
-                            prior = "equilibrado";
-                        }
-
-                        renderizarTreino(disp, prior);
-                    });
-                } else {
-                    console.error("Erro ao buscar preferências");
-                    renderizarTreino(3, "equilibrado");
-                }
-            })
-            .catch(function (erro) {
-                console.error("Erro na API:", erro);
-            });
-    }
-
-    function renderizarTreino(dias, prioridade) {
-
-       var kpiPrioridade = document.getElementById("kpi_prioridade");
-       var kpiDisponibilidade = document.getElementById("kpi_disponibilidade");
-
-        kpiPrioridade.innerHTML = prioridade.toUpperCase();
-        kpiDisponibilidade.innerHTML = dias + " DIAS";
-
-        var listaTreinos = [];
-        var diasTexto = String(dias);
-
-        if (catalogoTreinos[diasTexto] != undefined && catalogoTreinos[diasTexto][prioridade] != undefined) {
-            listaTreinos = catalogoTreinos[diasTexto][prioridade];
-        } else if (catalogoTreinos[diasTexto] != undefined) {
-            listaTreinos = catalogoTreinos[diasTexto]["equilibrado"];
-        } else {
-            listaTreinos = catalogoTreinos["3"]["equilibrado"];
-        }
-
-        var container = document.getElementById("container_treino_sugerido");
-        container.innerHTML = "";
-
-        for (var i = 0; i < listaTreinos.length; i++) {
-            var treinoAtual = listaTreinos[i];
-
-            var listaExerciciosHTML = "";
-
-            for (var j = 0; j < treinoAtual.exercicios.length; j++) {
-                var exercicio = treinoAtual.exercicios[j];
-
-                listaExerciciosHTML += '<li><i class="fa-solid fa-dumbbell" style="color: #8b0000;"></i> ' + exercicio + '</li>';
+    fetch(`/treinos/buscar?tipo=${prioridade}&diasSemana=${disponibilidade}&nivel=${nivel}`, {
+    method: "GET"
+    }).then(function(resposta){
+        if(resposta.ok){
+            if(resposta.status == 204){
+                document.getElementById("container_treino_sugerido").innerHTML = "Nenhum treino encontrado.";
+                return;
             }
-
-            container.innerHTML +=
-                '<div class="card_dia_treino">' +
-                '<h3>' + treinoAtual.dia + '</h3>' +
-                '<ul>' + listaExerciciosHTML + '</ul>' +
-                '</div>';
+        resposta.json().then(function (treinos) {
+                var container = document.getElementById("container_treino_sugerido");
+                container.innerHTML = "";
+                for (let i = 0; i < treinos.length; i++) {
+                    var treino = treinos[i];
+                    container.innerHTML += `
+                        <div class="card-treino">
+                            <h3>${treino.titulo}</h3>
+                            <p><strong>Nível:</strong> ${treino.nivel}</p>
+                            <p>${treino.descricao}</p>
+                        </div>
+                    `;
+                }
+            });
         }
-    }
+    }).catch(function (erro) {
+        console.error("Erro na busca:", erro);
+    });
+}
+
     window.onload = function () {
-        buscarDadosEAtualizar();
+        buscarTreino();
     }
 </script>
